@@ -75,6 +75,25 @@ Currently, two official plugins are available:
     - Muy similar a JS
     - Son camelCase -> es decir onchange se utiliza onChange, onclick es onClick
 
+# props
+    - Forma de pasar variables o funciones de un componente a otro
+
+# funcion de actualizacion useState (setEstado)
+
+    En el contexto de React y el uso de useState, cuando defines una función de actualización de estado utilizando la forma de una función dentro de setEstado, el parámetro de esa función es el estado anterior.
+
+        setEstado( estadoAnterior => nuevoEstado )
+
+    Ejem del codigo:
+
+        setPacientes( pacientes => [...pacientes, paciente]);
+
+    La función que se proporciona como argumento toma pacientes como su parámetro, que representa el estado actual de pacientes. Luego, crea un nuevo array utilizando el spread operator (...pacientes) para incluir todos los elementos actuales y agrega el nuevo elemento (paciente) al final.
+
+# prop children
+    En React, la prop children es una prop especial que permite pasar componentes o elementos hijos a otro componente. Se utiliza para transmitir contenido anidado dentro de un componente y permite una mayor flexibilidad y reutilización de los componentes.
+
+
 
 
 

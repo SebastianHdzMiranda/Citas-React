@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import Error from "./Error";
 
-function Formulario() {
+function Formulario({setPacientes}) {
   // STATES
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -8,11 +9,34 @@ function Formulario() {
   const [fecha, setFecha] = useState('');
   const [sintomas, setSintomas] = useState('');
 
+  const [error, setError] = useState(false);
+
   // Funciones
   const handleSubmit = (e)=> {
     e.preventDefault();
-    console.log('Enviando Form');
+
+    // Validando formulario
+    const validar = [nombre, propietario, email, fecha, sintomas].includes('');
+
+    if (validar) {
+      setError(true);
+      return;
+    }
+
+    setError(false);
+    const paciente = {nombre, propietario, email, fecha, sintomas}
+
+    // ver #funcion de actualizacion useState (setEstado).README.md
+    setPacientes( pacientes => [...pacientes, paciente]);
+
+    // Reiniciar formulario
+    resetearForm();
   }
+
+  const resetearForm = ()=> {
+    setNombre(''); setPropietario(''); setEmail(''); setFecha(''); setSintomas('');
+  }
+
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
@@ -27,6 +51,12 @@ function Formulario() {
         className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
         onSubmit={handleSubmit}
       >
+        {error && 
+          <Error>
+            <p>Todos los campos son requeridos</p>
+          </Error> 
+        }  
+        
         <div className="mb-5">
           <label
             htmlFor="mascota"
@@ -70,7 +100,7 @@ function Formulario() {
           </label>
           <input
             id="email"
-            type="text"
+            type="email"
             placeholder="Email Contacto Propietario"
             className="border-2 w-full p-2 mt-2 rounded-md placeholder-gray-400"
             value={email}
