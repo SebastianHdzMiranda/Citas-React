@@ -93,6 +93,9 @@ Currently, two official plugins are available:
 # prop children
     En React, la prop children es una prop especial que permite pasar componentes o elementos hijos a otro componente. Se utiliza para transmitir contenido anidado dentro de un componente y permite una mayor flexibilidad y reutilización de los componentes.
 
+# Buenas practicas
+    - No ocupar el index del arreglo en .map para key, crear mejor un id unico con uuidv4 (recomendable)
+
 
 
 

@@ -26,6 +26,21 @@ function Paciente(props) {
                 Sintomas:
                 <span className="font-normal normal-case"> {sintomas}</span>
             </p>
+
+            <div className='flex gap-3 flex-col md:flex-row mt-7'>
+                <button
+                    type='button'
+                    className='py-2 px-10 bg-indigo-600 hover:bg-indigo-700 transition-colors rounded-md text-white font-bold uppercase w-full text-sm'
+                >
+                    Editar
+                </button>
+                <button
+                    type='button'
+                    className='py-2 px-10 bg-red-600 hover:bg-red-700 transition-colors rounded-md text-white font-bold uppercase w-full text-sm'
+                >
+                    Eliminar
+                </button>
+            </div>
         </div>
     );
 }

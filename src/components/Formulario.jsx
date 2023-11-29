@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
+import { v4 as uuidv4 } from "uuid";
 
 function Formulario({setPacientes}) {
   // STATES
@@ -24,7 +25,7 @@ function Formulario({setPacientes}) {
     }
 
     setError(false);
-    const paciente = {nombre, propietario, email, fecha, sintomas}
+    const paciente = {nombre, propietario, email, fecha, sintomas,id: uuidv4()}
 
     // ver #funcion de actualizacion useState (setEstado).README.md
     setPacientes( pacientes => [...pacientes, paciente]);
@@ -36,7 +37,6 @@ function Formulario({setPacientes}) {
   const resetearForm = ()=> {
     setNombre(''); setPropietario(''); setEmail(''); setFecha(''); setSintomas('');
   }
-
 
   return (
     <div className="md:w-1/2 lg:w-2/5">

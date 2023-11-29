@@ -4,7 +4,7 @@ import ListadoPacientes from "./components/ListadoPacientes";
 import Formulario from "./components/formulario";
 
 function App() {
-
+  // STATES
   const [pacientes, setPacientes] = useState([]);
 
   return (
