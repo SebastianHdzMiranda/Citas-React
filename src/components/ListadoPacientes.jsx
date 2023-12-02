@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
 import Paciente from "./Paciente";
 
-function ListadoPacientes({pacientes}) {
+function ListadoPacientes({pacientes, setPaciente, eliminarPaciente}) {
 
     return (
     
@@ -9,7 +8,7 @@ function ListadoPacientes({pacientes}) {
 
             {pacientes && pacientes.length ? 
                 <>
-                    <h2 className="font-black text-3xl text-center">Listado Pacientes</h2>
+                    <h2 className="font-black text-2xl md:text-3xl text-center">Listado Pacientes</h2>
 
                     <p className="text-center mt-5 mb-10 text-xl">
                     Administra tus {''}
@@ -22,6 +21,8 @@ function ListadoPacientes({pacientes}) {
                             <Paciente 
                                 key={paciente.id} 
                                 paciente={paciente}
+                                setPaciente={setPaciente}
+                                eliminarPaciente={eliminarPaciente}
                             />
                         )
                     }
@@ -29,7 +30,7 @@ function ListadoPacientes({pacientes}) {
                 </> 
             : 
                 <>
-                    <h2 className="font-black text-3xl text-center">No hay pacientes</h2>
+                    <h2 className="font-black text-2xl md:text-3xl text-center">No hay pacientes</h2>
 
                     <p className="text-center mt-5 mb-10 text-xl">
                     Comienza agregando uno {''}

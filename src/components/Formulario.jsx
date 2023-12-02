@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Error from "./Error";
 import { v4 as uuidv4 } from "uuid";
 
-function Formulario({setPacientes}) {
+function Formulario({pacientes, setPacientes, paciente, setPaciente}) {
   // STATES
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -11,6 +11,18 @@ function Formulario({setPacientes}) {
   const [sintomas, setSintomas] = useState('');
 
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if ( Object.entries(paciente).length > 0 ) {
+      const {nombre, propietario, email, fecha, sintomas} = paciente;
+      setNombre(nombre);
+      setPropietario(propietario);
+      setEmail(email);
+      setFecha(fecha);
+      setSintomas(sintomas);
+    }
+  }, [paciente])
+  
 
   // Funciones
   const handleSubmit = (e)=> {
@@ -25,10 +37,25 @@ function Formulario({setPacientes}) {
     }
 
     setError(false);
-    const paciente = {nombre, propietario, email, fecha, sintomas,id: uuidv4()}
+    const pacienteObj = {nombre, propietario, email, fecha, sintomas}
 
-    // ver #funcion de actualizacion useState (setEstado).README.md
-    setPacientes( pacientes => [...pacientes, paciente]);
+    if (paciente.id) {
+      // Editando registro
+      pacienteObj.id = paciente.id;
+      
+      const pacientesAct = pacientes.map( pacienteState => pacienteState.id === paciente.id ? pacienteObj : pacienteState );
+
+      setPacientes(pacientesAct);
+      setPaciente({})
+
+    } else {
+      // Nuevo Registro
+      pacienteObj.id = uuidv4();
+
+      // ver #funcion de actualizacion useState (setEstado).README.md
+      setPacientes( pacientes => [...pacientes, pacienteObj]);
+    }
+
 
     // Reiniciar formulario
     resetearForm();
@@ -40,7 +67,7 @@ function Formulario({setPacientes}) {
 
   return (
     <div className="md:w-1/2 lg:w-2/5">
-      <h2 className="font-black text-3xl text-center">Seguimiento Pacientes</h2>
+      <h2 className="font-black text-2xl md:text-3xl text-center">Seguimiento Pacientes</h2>
 
       <p className="text-xl mt-5 text-center mb-10">
         Añade Pacientes y {""}
@@ -142,7 +169,7 @@ function Formulario({setPacientes}) {
 
         <input
           type="submit"
-          value="Agregar Paciente"
+          value={ paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }
           className="
               bg-indigo-600 
               w-full 

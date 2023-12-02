@@ -16,6 +16,8 @@ Currently, two official plugins are available:
     2.- ejecutar npm install
     3.- correr la app con npm run dev
 
+# npm run build
+
 # JSX 
     JavaScript Syntax Extension: Extension del lenguaje desarrolada por Facebook para react
 
@@ -71,6 +73,25 @@ Currently, two official plugins are available:
     1.- useState: 
         - State es basicamente el estado de nuestra app
 
+    2.- useEffect: 
+        - es un callback, que se ejecuta cuando un state cambia o cuando el componente esta listo
+        - Al ejecutarse automaticamente cuando el componente esta listo, es un excelente lugar para colocar docigo para consultar una API o LocalStorage
+        - Debido a que le podemos pasar una dependencia y estar escuchando por los cambios que sucedan en una variable, puede actualizar el componente cuando el cambio suceda
+        
+            useEffect(() => {
+                <!-- tu codigo aqui -->
+            }, [variable]);
+
+        - Si las dependencias estan vacias, el codigo se ejecuta cuando el componente este listo:
+            
+            useEffect(() => {
+                <!-- tu codigo aqui -->
+            }, []);
+
+        - Se pueden tener varios useEffect en un componente
+        - Se ejecutan conforme los declaras en el codigo, el primer useEffect que tengas en tu componente, sera el primero en ejecutarse y asi sucesivamente
+        
+
 # EVENTOS
     - Muy similar a JS
     - Son camelCase -> es decir onchange se utiliza onChange, onclick es onClick
@@ -96,10 +117,19 @@ Currently, two official plugins are available:
 # Buenas practicas
     - No ocupar el index del arreglo en .map para key, crear mejor un id unico con uuidv4 (recomendable)
 
+# lazy initialization
 
+    Consiste en retrasar la inicialización de un recurso hasta el momento en que realmente se necesita. Ejemplo,
 
+        const [pacientes, setPacientes] = useState(()=>JSON.parse( localStorage.getItem('pacientes')) || []);
 
+    En el state que guardamos en localStorage, queremos que el state tome valor que esta almacenado en LocalStorage solo cuando se necesite, y esto es al refrescar la pagina, por que si no en cada renderizado donde cambie pacientes se ejecutara la funcion JSON.parse. Ejecuta el siguiente codigo y ponlo a prueba:
 
+        const[pacientes, setPacientes] = useState(console.log("Se ejecuta esta función") || []);
+
+    Veras que cada ves que agregues, edites o elimines un paciente, se imprimira el clg. Y esto no es para nada optimo ya que afecta en el rendimiento y la eficacia de la aplicacion, en cambio al agregar un callback '()=>' se ejecutara solo la primera vez
+
+        const[pacientes, setPacientes] = useState(()=>console.log("Se ejecuta esta función") || []);
 
 
 
